@@ -3,4 +3,4 @@ project(GenericProgramming)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(GenericProgramming main.cpp IntStack.cpp IntStack.h Node.cpp Node.h)
+add_executable(GenericProgramming main.cpp Stack.cpp Stack.h Node.cpp Node.h)
