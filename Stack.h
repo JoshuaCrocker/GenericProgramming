@@ -18,7 +18,9 @@ public:
 
     void push(T val);
     T pop();
-
+    void iterate(void callback(T &val));
+    void iterate(T callback(T val));
+    void iterate(void callback(T &val, void *p), void *ptr);
 };
 
 template<typename T>
@@ -56,6 +58,48 @@ T Stack<T>::pop()
 
     delete popped;
     return value;
+}
+
+template<typename T>
+void Stack<T>::iterate(T callback(T val))
+{
+    Node<T> *current = head;
+
+    while (current != nullptr)
+    {
+        current->setValue(callback(current->getValue()));
+        current = current->getNext();
+    }
+}
+
+template<typename T>
+void Stack<T>::iterate(void callback(T &val))
+{
+    Node<T> *current = head;
+
+    while (current != NULL)
+    {
+        T temp = current->getValue();
+        callback(temp);
+        current->setValue(temp);
+
+        current = current->getNext();
+    }
+}
+
+template<typename T>
+void Stack<T>::iterate(void callback(T &val, void *p), void *ptr)
+{
+    Node<T> *current = head;
+
+    while (current != NULL)
+    {
+        T temp = current->getValue();
+        callback(temp, ptr);
+        current->setValue(temp);
+
+        current = current->getNext();
+    }
 }
 
 #endif //GENERICPROGRAMMING_INTSTACK_H

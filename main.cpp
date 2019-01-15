@@ -1,16 +1,34 @@
 #include <iostream>
 #include "Stack.h"
 
+void doubleInt(int &value)
+{
+    value *= 2;
+}
+
+void sum(int &value, void *ptr)
+{
+    int *totalPtr = (int *) ptr;
+    (*totalPtr) += value;
+}
+
 int main()
 {
     Stack<int> *stack = new Stack<int>();
     stack->push(1);
     stack->push(2);
     stack->push(3);
-    stack->pop();
-    stack->pop();
     stack->push(4);
     stack->push(5);
+
+    int total = 0;
+    stack->iterate(sum, &total);
+    std::cout << "[>] Total is " << total << std::endl;
+
+    stack->iterate(doubleInt);
+
+    stack->pop();
+    stack->pop();
     stack->pop();
     stack->pop();
     stack->pop();
